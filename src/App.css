@@ -1,5 +1,37 @@
+body {
+  background-color: #282c34;
+  /* background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%); */
+}
+.Winner {
+  background: -webkit-linear-gradient(
+    45deg,
+    #ff8c00,
+    #ff0080
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    45deg,
+    #ff8c00,
+    #ff0080
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: azure;
+}
 .App {
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.Panel {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 2em 1em 2em;
+  justify-content: flex-start;
+}
+
+.Cards {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 .App-logo {

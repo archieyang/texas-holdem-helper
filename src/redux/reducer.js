@@ -59,7 +59,7 @@ const setCard = (state, key, value) => {
 const convertToString = (cards) => {
   let ret = [];
   cards.forEach((value) => {
-    ret.push((value.rank == 10 ? "T" : value.rank) + value.suit);
+    ret.push((value.rank === "10" ? "T" : value.rank) + value.suit);
   });
 
   return ret;
@@ -69,6 +69,10 @@ const reducer = (state = initState, action) => {
   //test
 
   switch (action.type) {
+    case Types.ADD_PLAYER:
+      return state.updateIn(["players"], (arr) =>
+        arr.push(fromJS({ cards: [{}, {}] }))
+      );
     case Types.START_EDITING:
       if (action.payload.playerIndex === -1) {
         action.payload.default = state

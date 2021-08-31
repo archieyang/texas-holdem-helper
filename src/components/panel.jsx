@@ -1,47 +1,46 @@
 import React, { Component } from "react";
 import Card from "./card";
 import Chip from "@material-ui/core/Chip";
-import useWindowDimensions from "../hooks/useWindowDimensions";
+import FaceIcon from "@material-ui/icons/Face";
+
+const COL = 5;
+const CARD_HEIGHT = 100;
+const CARD_WIDTH = 75;
 
 let Panel = (props) => {
-  const { height, width } = useWindowDimensions();
-  let winner = props.winner && props.winner === true;
+  const winner = props.winner && props.winner === true;
+  const index = props.index + 1;
   return (
-    <table style={{ width }}>
-      <tbody>
-        <tr>
-          {winner === true && (
-            <td>
-              <Chip
-                label="WINNER!!!"
-                style={{
-                  backgroundColor: "white",
-                }}
-              />
-            </td>
-          )}
-        </tr>
-        <tr
-          style={{
-            backgroundColor: winner ? "blue" : "transparent",
-          }}
-        >
-          <td>
-            {props.cards.map((card, index) => {
-              return (
-                <Card
-                  key={index}
-                  card={card}
-                  onClick={() => {
-                    props.onCardClick(index, props.index);
-                  }}
-                />
-              );
-            })}
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div className="Panel">
+      <Chip
+        icon={<FaceIcon />}
+        label={winner ? "WINNER" : index == 0 ? "Community" : `Player ${index}`}
+        className={winner ? "Winner" : ""}
+        color="primary"
+        style={{ marginBottom: "1em", flexWrap: "wrap", width: "10em" }}
+      />
+
+      <div className="Cards">
+        {props.cards.map((card, index) => {
+          return (
+            <Card
+              backgroundColor="aqua"
+              key={index}
+              card={card}
+              height={CARD_HEIGHT}
+              onClick={() => {
+                props.onCardClick(index, props.index);
+              }}
+            />
+          );
+        })}
+
+        {props.cards.length < COL &&
+          [...Array(COL - props.cards.length).keys()].map((index) => {
+            return <img width={CARD_WIDTH} height="0" key={-10 - index} />;
+          })}
+      </div>
+    </div>
   );
 };
 

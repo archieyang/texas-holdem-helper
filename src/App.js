@@ -1,53 +1,56 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Panel from "./components/panel";
 import PickerDialog from "./components/pickerDialog";
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Types } from "./action";
+import { ACTION_BUTTON } from "./styles/style";
+
 import Button from "@material-ui/core/Button";
+import Appbar from "./components/appbar";
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <Panel
-          onCardClick={this.props.handleStartEditing}
-          cards={this.props.community}
-          index={-1}
-          key={-1}
-          winner={false}
-        />
-        {this.props.players.map((player, index) => {
-          return (
-            <Panel
-              onCardClick={this.props.handleStartEditing}
-              cards={player.cards}
-              key={index}
-              index={index}
-              winner={player.winner}
-            />
-          );
-        })}
+const App = (props) => {
+  return (
+    <div className="App">
+      <Appbar onAddClick={props.handleAddPlayer} />
+      <Panel
+        onCardClick={props.handleStartEditing}
+        cards={props.community}
+        index={-1}
+        key={-1}
+        winner={false}
+      />
+      {props.players.map((player, index) => {
+        return (
+          <Panel
+            onCardClick={props.handleStartEditing}
+            cards={player.cards}
+            key={index}
+            index={index}
+            winner={player.winner}
+          />
+        );
+      })}
 
-        <PickerDialog
-          open={this.props.showDialog}
-          handleClose={this.props.handleFinishEditing}
-          handleSuitChange={this.props.handleSuitChanged}
-          handleRankChange={this.props.handleRankChanged}
-          editing={this.props.editing}
-        />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={this.props.handleSolve}
-        >
-          Solve
-        </Button>
-      </div>
-    );
-  }
-}
+      <Button
+        variant="contained"
+        color="primary"
+        style={ACTION_BUTTON}
+        onClick={props.handleSolve}
+      >
+        Solve
+      </Button>
+
+      <PickerDialog
+        open={props.showDialog}
+        handleClose={props.handleFinishEditing}
+        handleSuitChange={props.handleSuitChanged}
+        handleRankChange={props.handleRankChanged}
+        editing={props.editing}
+      />
+    </div>
+  );
+};
 
 const stateToProps = (state) => {
   return state.toJS();
@@ -55,6 +58,11 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
+    handleAddPlayer: () => {
+      dispatch({
+        type: Types.ADD_PLAYER,
+      });
+    },
     handleStartEditing: (cardIndex, playerIndex) => {
       dispatch({
         type: Types.START_EDITING,
