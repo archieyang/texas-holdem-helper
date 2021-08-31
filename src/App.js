@@ -5,7 +5,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { Types } from "./action";
 import { ACTION_BUTTON } from "./styles/style";
-
+import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 import Appbar from "./components/appbar";
 
@@ -41,10 +41,21 @@ const App = (props) => {
         variant="contained"
         color="primary"
         style={ACTION_BUTTON}
-        onClick={props.handleSolve}
+        onClick={props.isValid ? props.handleSolve : props.showErrorPrompt}
       >
         Solve
       </Button>
+
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "left",
+        }}
+        open={props.errorPrompt}
+        autoHideDuration={3000}
+        onClose={props.hideErrorPrompt}
+        message="Duplicate card"
+      />
 
       <PickerDialog
         open={props.showDialog}
@@ -111,6 +122,16 @@ const dispatchToProps = (dispatch) => {
         payload: {
           rank,
         },
+      });
+    },
+    showErrorPrompt: () => {
+      dispatch({
+        type: Types.SHOW_ERROR_PROMPT,
+      });
+    },
+    hideErrorPrompt: () => {
+      dispatch({
+        type: Types.HIDE_ERROR_PROMPT,
       });
     },
 

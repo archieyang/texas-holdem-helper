@@ -5,13 +5,6 @@ import _ from "lodash";
 import { Hand } from "pokersolver";
 import { Suit, Rank } from "../data/cardData";
 
-// const initState = fromJS({
-//   showDialog: false,
-//   community: [{}, {}, {}, {}, {}],
-//   players: [{ cards: [{}, {}] }, { cards: [{}, {}] }],
-//   editing: { default: { Default } },
-// });
-
 const initState = fromJS({
   showDialog: false,
   community: [
@@ -36,6 +29,8 @@ const initState = fromJS({
     },
   ],
   editing: { default: { Default } },
+  isValid: true,
+  errorPrompt: false,
 });
 
 const setCard = (state, key, value) => {
@@ -56,6 +51,36 @@ const setCard = (state, key, value) => {
   }
 };
 
+const validate = (state) => {
+  const cards = [];
+
+  state
+    .get("community")
+    .toJS()
+    .forEach((card) => {
+      cards.push(card);
+    });
+
+  state
+    .get("players")
+    .toJS()
+    .forEach((player) => {
+      player.cards.forEach((card) => {
+        cards.push(card);
+      });
+    });
+
+  for (let i = 0; i < cards.length; i++) {
+    for (let j = i + 1; j < cards.length; j++) {
+      if (_.isEqual(cards[i], cards[j])) {
+        return state.set("isValid", false);
+      }
+    }
+  }
+
+  return state.set("isValid", true);
+};
+
 const convertToString = (cards) => {
   let ret = [];
   cards.forEach((value) => {
@@ -66,7 +91,6 @@ const convertToString = (cards) => {
 };
 
 const reducer = (state = initState, action) => {
-  //test
   let plainState = state.toJS();
   switch (action.type) {
     case Types.RESET:
@@ -103,24 +127,34 @@ const reducer = (state = initState, action) => {
         action.payload.default = Default;
       }
 
-      return setCard(
+      return validate(
         setCard(
-          state.set("editing", fromJS(action.payload)).set("showDialog", true),
-          "suit",
-          action.payload.default.suit
-        ),
-        "rank",
-        action.payload.default.rank
+          setCard(
+            state
+              .set("editing", fromJS(action.payload))
+              .set("showDialog", true),
+            "suit",
+            action.payload.default.suit
+          ),
+          "rank",
+          action.payload.default.rank
+        )
       );
 
     case Types.FINISH_EDITING:
       return state.set("showDialog", false);
 
     case Types.SUIT_CHANGED:
-      return setCard(state, "suit", action.payload.suit);
+      return validate(setCard(state, "suit", action.payload.suit));
 
     case Types.RANK_CHANGED:
-      return setCard(state, "rank", action.payload.rank);
+      return validate(setCard(state, "rank", action.payload.rank));
+
+    case Types.SHOW_ERROR_PROMPT:
+      return state.set("errorPrompt", true);
+
+    case Types.HIDE_ERROR_PROMPT:
+      return state.set("errorPrompt", false);
 
     case Types.SOLVE:
       plainState.players.forEach((player) => {

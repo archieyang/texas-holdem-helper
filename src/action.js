@@ -6,5 +6,7 @@ export const Types = {
   FINISH_EDITING: "done-editing",
   SUIT_CHANGED: "suit-changed",
   RANK_CHANGED: "rank-changed",
+  SHOW_ERROR_PROMPT: "show-error",
+  HIDE_ERROR_PROMPT: "hide-error",
   SOLVE: "solve",
 };
