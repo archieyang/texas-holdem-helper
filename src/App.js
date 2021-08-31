@@ -12,18 +12,23 @@ import Appbar from "./components/appbar";
 const App = (props) => {
   return (
     <div className="App">
-      <Appbar onAddClick={props.handleAddPlayer} />
+      <Appbar
+        onAddClick={props.handleAddPlayer}
+        onResetClick={props.handleReset}
+      />
       <Panel
         onCardClick={props.handleStartEditing}
         cards={props.community}
         index={-1}
         key={-1}
+        onDeletePlayer={() => {}}
         winner={false}
       />
       {props.players.map((player, index) => {
         return (
           <Panel
             onCardClick={props.handleStartEditing}
+            onDeletePlayer={props.handleDeletePlayer}
             cards={player.cards}
             key={index}
             index={index}
@@ -58,9 +63,22 @@ const stateToProps = (state) => {
 
 const dispatchToProps = (dispatch) => {
   return {
+    handleReset: () => {
+      dispatch({
+        type: Types.RESET,
+      });
+    },
     handleAddPlayer: () => {
       dispatch({
         type: Types.ADD_PLAYER,
+      });
+    },
+    handleDeletePlayer: (playerIndex) => {
+      dispatch({
+        type: Types.DELETE_PLAYER,
+        payload: {
+          playerIndex,
+        },
       });
     },
     handleStartEditing: (cardIndex, playerIndex) => {

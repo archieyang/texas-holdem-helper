@@ -67,11 +67,22 @@ const convertToString = (cards) => {
 
 const reducer = (state = initState, action) => {
   //test
-
+  let plainState = state.toJS();
   switch (action.type) {
+    case Types.RESET:
+      plainState.players.map((player) => {
+        player.cards = [{}, {}];
+        delete player.winner;
+      });
+      plainState.community = [{}, {}, {}, {}, {}];
+      return fromJS(plainState);
     case Types.ADD_PLAYER:
+      return state.updateIn(["players"], (players) =>
+        players.push(fromJS({ cards: [{}, {}] }))
+      );
+    case Types.DELETE_PLAYER:
       return state.updateIn(["players"], (arr) =>
-        arr.push(fromJS({ cards: [{}, {}] }))
+        arr.splice(action.payload.playerIndex, 1)
       );
     case Types.START_EDITING:
       if (action.payload.playerIndex === -1) {
@@ -112,17 +123,19 @@ const reducer = (state = initState, action) => {
       return setCard(state, "rank", action.payload.rank);
 
     case Types.SOLVE:
-      let plainState = state.toJS();
-
       plainState.players.forEach((player) => {
         delete player.winner;
       });
 
-      let hands = plainState.players.map((player) => {
-        return Hand.solve(
-          convertToString([...player.cards, ...plainState.community])
-        );
-      });
+      let hands = plainState.players
+        .filter((player) => {
+          return !_.isEmpty(player.cards[0]) && !_.isEmpty(player.cards[1]);
+        })
+        .map((player) => {
+          return Hand.solve(
+            convertToString([...player.cards, ...plainState.community])
+          );
+        });
 
       let solvedHands = Hand.winners(hands);
 

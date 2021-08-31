@@ -41,6 +41,7 @@ const Appbar = (props) => {
             edge="start"
             className={classes.iconButton}
             color="inherit"
+            onClick={props.onResetClick}
           >
             <ResetIcon />
           </IconButton>

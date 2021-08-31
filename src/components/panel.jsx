@@ -10,14 +10,24 @@ const CARD_WIDTH = 75;
 let Panel = (props) => {
   const winner = props.winner && props.winner === true;
   const index = props.index + 1;
+  const isCommumity = index === 0;
   return (
     <div className="Panel">
       <Chip
         icon={<FaceIcon />}
-        label={winner ? "WINNER" : index == 0 ? "Community" : `Player ${index}`}
+        label={
+          winner ? "WINNER" : isCommumity ? "Community" : `Player ${index}`
+        }
         className={winner ? "Winner" : ""}
         color="primary"
-        style={{ marginBottom: "1em", flexWrap: "wrap", width: "10em" }}
+        onDelete={
+          isCommumity
+            ? undefined
+            : () => {
+                props.onDeletePlayer(props.index);
+              }
+        }
+        style={{ marginBottom: "1em", flexWrap: "wrap", width: "12em" }}
       />
 
       <div className="Cards">
