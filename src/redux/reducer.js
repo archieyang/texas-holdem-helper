@@ -90,6 +90,13 @@ const convertToString = (cards) => {
   return ret;
 };
 
+const clearWinnerState = (state) => {
+  state.players.forEach((player) => {
+    delete player.winner;
+  });
+  return state;
+};
+
 const reducer = (state = initState, action) => {
   let plainState = state.toJS();
   switch (action.type) {
@@ -145,10 +152,22 @@ const reducer = (state = initState, action) => {
       return state.set("showDialog", false);
 
     case Types.SUIT_CHANGED:
-      return validate(setCard(state, "suit", action.payload.suit));
+      return validate(
+        setCard(
+          fromJS(clearWinnerState(plainState)),
+          "suit",
+          action.payload.suit
+        )
+      );
 
     case Types.RANK_CHANGED:
-      return validate(setCard(state, "rank", action.payload.rank));
+      return validate(
+        setCard(
+          fromJS(clearWinnerState(plainState)),
+          "rank",
+          action.payload.rank
+        )
+      );
 
     case Types.SHOW_ERROR_PROMPT:
       return state.set("errorPrompt", true);
@@ -157,10 +176,7 @@ const reducer = (state = initState, action) => {
       return state.set("errorPrompt", false);
 
     case Types.SOLVE:
-      plainState.players.forEach((player) => {
-        delete player.winner;
-      });
-
+      clearWinnerState(plainState);
       let hands = plainState.players
         .filter((player) => {
           return !_.isEmpty(player.cards[0]) && !_.isEmpty(player.cards[1]);
