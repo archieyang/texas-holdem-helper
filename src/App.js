@@ -9,6 +9,7 @@ import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 import Appbar from "./components/appbar";
 import Container from "@material-ui/core/Container";
+import MuiAlert from "@material-ui/lab/Alert";
 
 const App = (props) => {
   return (
@@ -54,13 +55,14 @@ const App = (props) => {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "left",
+          horizontal: "center",
         }}
         open={props.errorPrompt}
         autoHideDuration={3000}
         onClose={props.hideErrorPrompt}
-        message="Duplicate card"
-      />
+      >
+        <Alert severity="error">Duplicate card</Alert>
+      </Snackbar>
 
       <PickerDialog
         open={props.showDialog}
@@ -130,5 +132,9 @@ const dispatchToProps = (dispatch) => {
     },
   };
 };
+
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 
 export default connect(stateToProps, dispatchToProps)(App);

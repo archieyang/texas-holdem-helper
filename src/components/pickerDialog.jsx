@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
@@ -8,6 +8,7 @@ import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
 import { Hearts, Diamonds, Spades, Clubs } from "../data/cardData";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Cards from "./cards";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -42,27 +43,21 @@ function a11yProps(index) {
   };
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper,
-  },
-}));
-
 const PickerDialog = (props) => {
-  const classes = useStyles();
   const [value, setValue] = React.useState(0);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
   return (
     <Dialog
-      fullScreen
+      fullScreen={fullScreen}
       open={props.open}
       onClose={props.handleClose}
       TransitionComponent={Transition}
-      className={classes.root}
+      aria-labelledby="responsive-dialog-title"
     >
       <AppBar position="static">
         <Tabs
