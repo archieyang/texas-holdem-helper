@@ -1,5 +1,4 @@
 import { Types } from "../action";
-import { Default } from "../data/cardData";
 import { fromJS } from "immutable";
 import _ from "lodash";
 import { Hand } from "pokersolver";
@@ -28,7 +27,7 @@ const initState = fromJS({
       ],
     },
   ],
-  editing: { default: { Default } },
+  editing: {},
   isValid: true,
   errorPrompt: false,
 });
@@ -117,37 +116,9 @@ const reducer = (state = initState, action) => {
         arr.splice(action.payload.playerIndex, 1)
       );
     case Types.START_EDITING:
-      if (action.payload.playerIndex === -1) {
-        action.payload.default = state
-          .get("community")
-          .get(action.payload.cardIndex)
-          .toJS();
-      } else {
-        action.payload.default = state
-          .get("players")
-          .get(action.payload.playerIndex)
-          .get("cards")
-          .get(action.payload.cardIndex)
-          .toJS();
-      }
-
-      if (_.isEmpty(action.payload.default)) {
-        action.payload.default = Default;
-      }
-
-      return validate(
-        setCard(
-          setCard(
-            state
-              .set("editing", fromJS(action.payload))
-              .set("showDialog", true),
-            "suit",
-            action.payload.default.suit
-          ),
-          "rank",
-          action.payload.default.rank
-        )
-      );
+      return state
+        .set("editing", fromJS(action.payload))
+        .set("showDialog", true);
 
     case Types.CARD_CHANGED:
       return validate(
