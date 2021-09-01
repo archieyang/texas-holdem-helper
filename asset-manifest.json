@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/texas-holdem-helper/static/css/main.a7ff743a.chunk.css",
-    "main.js": "/texas-holdem-helper/static/js/main.6a80c637.chunk.js",
-    "main.js.map": "/texas-holdem-helper/static/js/main.6a80c637.chunk.js.map",
-    "runtime-main.js": "/texas-holdem-helper/static/js/runtime-main.9a94460d.js",
-    "runtime-main.js.map": "/texas-holdem-helper/static/js/runtime-main.9a94460d.js.map",
-    "static/js/2.c4ad6c1c.chunk.js": "/texas-holdem-helper/static/js/2.c4ad6c1c.chunk.js",
-    "static/js/2.c4ad6c1c.chunk.js.map": "/texas-holdem-helper/static/js/2.c4ad6c1c.chunk.js.map",
-    "static/js/3.1e1c8f4c.chunk.js": "/texas-holdem-helper/static/js/3.1e1c8f4c.chunk.js",
-    "static/js/3.1e1c8f4c.chunk.js.map": "/texas-holdem-helper/static/js/3.1e1c8f4c.chunk.js.map",
-    "index.html": "/texas-holdem-helper/index.html",
-    "static/css/main.a7ff743a.chunk.css.map": "/texas-holdem-helper/static/css/main.a7ff743a.chunk.css.map",
-    "static/js/2.c4ad6c1c.chunk.js.LICENSE.txt": "/texas-holdem-helper/static/js/2.c4ad6c1c.chunk.js.LICENSE.txt"
+    "main.css": "http://localhost:3000/static/css/main.a7ff743a.chunk.css",
+    "main.js": "http://localhost:3000/static/js/main.6a80c637.chunk.js",
+    "main.js.map": "http://localhost:3000/static/js/main.6a80c637.chunk.js.map",
+    "runtime-main.js": "http://localhost:3000/static/js/runtime-main.de4a91a0.js",
+    "runtime-main.js.map": "http://localhost:3000/static/js/runtime-main.de4a91a0.js.map",
+    "static/js/2.c4ad6c1c.chunk.js": "http://localhost:3000/static/js/2.c4ad6c1c.chunk.js",
+    "static/js/2.c4ad6c1c.chunk.js.map": "http://localhost:3000/static/js/2.c4ad6c1c.chunk.js.map",
+    "static/js/3.1e1c8f4c.chunk.js": "http://localhost:3000/static/js/3.1e1c8f4c.chunk.js",
+    "static/js/3.1e1c8f4c.chunk.js.map": "http://localhost:3000/static/js/3.1e1c8f4c.chunk.js.map",
+    "index.html": "http://localhost:3000/index.html",
+    "static/css/main.a7ff743a.chunk.css.map": "http://localhost:3000/static/css/main.a7ff743a.chunk.css.map",
+    "static/js/2.c4ad6c1c.chunk.js.LICENSE.txt": "http://localhost:3000/static/js/2.c4ad6c1c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.9a94460d.js",
+    "static/js/runtime-main.de4a91a0.js",
     "static/js/2.c4ad6c1c.chunk.js",
     "static/css/main.a7ff743a.chunk.css",
     "static/js/main.6a80c637.chunk.js"
