@@ -25,6 +25,8 @@ function TabPanel(props) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      className="Content"
+      style={{ height: "100%" }}
     >
       {value === index && <Box p={3}>{children}</Box>}
     </div>

@@ -2,6 +2,9 @@ body {
   background-color: #282c34;
   /* background: linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%); */
 }
+.Content {
+  background-color: #282c34;
+}
 .Winner {
   background: -webkit-linear-gradient(
     45deg,
