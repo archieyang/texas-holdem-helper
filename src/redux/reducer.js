@@ -71,7 +71,7 @@ const validate = (state) => {
 
   for (let i = 0; i < cards.length; i++) {
     for (let j = i + 1; j < cards.length; j++) {
-      if (_.isEqual(cards[i], cards[j])) {
+      if (_.isEqual(cards[i], cards[j]) && !_.isEmpty(cards[i])) {
         return state.set("isValid", false);
       }
     }
@@ -112,8 +112,10 @@ const reducer = (state = initState, action) => {
         players.push(fromJS({ cards: [{}, {}] }))
       );
     case Types.DELETE_PLAYER:
-      return state.updateIn(["players"], (arr) =>
-        arr.splice(action.payload.playerIndex, 1)
+      return validate(
+        state.updateIn(["players"], (arr) =>
+          arr.splice(action.payload.playerIndex, 1)
+        )
       );
     case Types.START_EDITING:
       return state
