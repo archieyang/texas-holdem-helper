@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/texas-holdem-helper/static/css/main.079c25c8.chunk.css",
-    "main.js": "/texas-holdem-helper/static/js/main.9daf2501.chunk.js",
-    "main.js.map": "/texas-holdem-helper/static/js/main.9daf2501.chunk.js.map",
+    "main.css": "/texas-holdem-helper/static/css/main.9331340d.chunk.css",
+    "main.js": "/texas-holdem-helper/static/js/main.1239cd8c.chunk.js",
+    "main.js.map": "/texas-holdem-helper/static/js/main.1239cd8c.chunk.js.map",
     "runtime-main.js": "/texas-holdem-helper/static/js/runtime-main.9a94460d.js",
     "runtime-main.js.map": "/texas-holdem-helper/static/js/runtime-main.9a94460d.js.map",
     "static/js/2.c4ad6c1c.chunk.js": "/texas-holdem-helper/static/js/2.c4ad6c1c.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.1e1c8f4c.chunk.js": "/texas-holdem-helper/static/js/3.1e1c8f4c.chunk.js",
     "static/js/3.1e1c8f4c.chunk.js.map": "/texas-holdem-helper/static/js/3.1e1c8f4c.chunk.js.map",
     "index.html": "/texas-holdem-helper/index.html",
-    "static/css/main.079c25c8.chunk.css.map": "/texas-holdem-helper/static/css/main.079c25c8.chunk.css.map",
+    "static/css/main.9331340d.chunk.css.map": "/texas-holdem-helper/static/css/main.9331340d.chunk.css.map",
     "static/js/2.c4ad6c1c.chunk.js.LICENSE.txt": "/texas-holdem-helper/static/js/2.c4ad6c1c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9a94460d.js",
     "static/js/2.c4ad6c1c.chunk.js",
-    "static/css/main.079c25c8.chunk.css",
-    "static/js/main.9daf2501.chunk.js"
+    "static/css/main.9331340d.chunk.css",
+    "static/js/main.1239cd8c.chunk.js"
   ]
 }
