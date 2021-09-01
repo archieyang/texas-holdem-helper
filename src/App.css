@@ -24,8 +24,7 @@ body {
 .Panel {
   display: flex;
   flex-direction: column;
-  padding: 1em 2em 1em 2em;
-  justify-content: flex-start;
+  padding: 1em 0em 1em 0em;
 }
 
 .Cards {

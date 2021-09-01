@@ -4,8 +4,8 @@ import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
 
 const COL = 5;
-const CARD_HEIGHT = 100;
-const CARD_WIDTH = 75;
+const CARD_HEIGHT = 80;
+const CARD_WIDTH = 60;
 
 let Panel = (props) => {
   const winner = props.winner && props.winner === true;
@@ -27,7 +27,12 @@ let Panel = (props) => {
                 props.onDeletePlayer(props.index);
               }
         }
-        style={{ marginBottom: "1em", flexWrap: "wrap", width: "12em" }}
+        style={{
+          marginBottom: "1em",
+          flexWrap: "wrap",
+          width: "12em",
+          alignSelf: "flex-start",
+        }}
       />
 
       <div className="Cards">

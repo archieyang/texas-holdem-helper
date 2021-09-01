@@ -10,9 +10,11 @@ class Card extends Component {
   render() {
     let { card } = this.props;
     let data = _.isEmpty(card)
-      ? Poker.getBackData(this.props.height)
-      : Poker.getCardData(this.props.height, card.suit, card.rank);
-    return <img src={data} onClick={this.props.onClick} />;
+      ? Poker.getBackData(200)
+      : Poker.getCardData(200, card.suit, card.rank);
+    return (
+      <img src={data} onClick={this.props.onClick} height={this.props.height} />
+    );
   }
 }
 

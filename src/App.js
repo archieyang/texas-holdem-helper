@@ -8,43 +8,48 @@ import { ACTION_BUTTON } from "./styles/style";
 import Snackbar from "@material-ui/core/Snackbar";
 import Button from "@material-ui/core/Button";
 import Appbar from "./components/appbar";
+import Container from "@material-ui/core/Container";
 
 const App = (props) => {
   return (
-    <div className="App">
+    <div>
       <Appbar
+      position="fixed"
         onAddClick={props.handleAddPlayer}
         onResetClick={props.handleReset}
       />
-      <Panel
-        onCardClick={props.handleStartEditing}
-        cards={props.community}
-        index={-1}
-        key={-1}
-        onDeletePlayer={() => {}}
-        winner={false}
-      />
-      {props.players.map((player, index) => {
-        return (
-          <Panel
-            onCardClick={props.handleStartEditing}
-            onDeletePlayer={props.handleDeletePlayer}
-            cards={player.cards}
-            key={index}
-            index={index}
-            winner={player.winner}
-          />
-        );
-      })}
 
-      <Button
-        variant="contained"
-        color="primary"
-        style={ACTION_BUTTON}
-        onClick={props.isValid ? props.handleSolve : props.showErrorPrompt}
-      >
-        Solve
-      </Button>
+      <Container maxWidth="sm" align="center">
+        <Panel
+          onCardClick={props.handleStartEditing}
+          cards={props.community}
+          index={-1}
+          key={-1}
+          onDeletePlayer={() => {}}
+          winner={false}
+        />
+        {props.players.map((player, index) => {
+          return (
+            <Panel
+              onCardClick={props.handleStartEditing}
+              onDeletePlayer={props.handleDeletePlayer}
+              cards={player.cards}
+              key={index}
+              index={index}
+              winner={player.winner}
+            />
+          );
+        })}
+
+        <Button
+          variant="contained"
+          color="primary"
+          style={ACTION_BUTTON}
+          onClick={props.isValid ? props.handleSolve : props.showErrorPrompt}
+        >
+          Solve
+        </Button>
+      </Container>
 
       <Snackbar
         anchorOrigin={{

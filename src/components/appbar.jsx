@@ -22,32 +22,30 @@ const useStyles = makeStyles((theme) => ({
 const Appbar = (props) => {
   const classes = useStyles();
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-            Texas Hold'em Helper
-          </Typography>
-          <IconButton
-            onClick={props.onAddClick}
-            edge="start"
-            className={classes.iconButton}
-            color="inherit"
-          >
-            <AddIcon />
-          </IconButton>
+    <AppBar position="sticky" className={classes.root}>
+      <Toolbar>
+        <Typography variant="h6" className={classes.title}>
+          Texas Hold'em Helper
+        </Typography>
+        <IconButton
+          onClick={props.onAddClick}
+          edge="start"
+          className={classes.iconButton}
+          color="inherit"
+        >
+          <AddIcon />
+        </IconButton>
 
-          <IconButton
-            edge="start"
-            className={classes.iconButton}
-            color="inherit"
-            onClick={props.onResetClick}
-          >
-            <ResetIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </div>
+        <IconButton
+          edge="start"
+          className={classes.iconButton}
+          color="inherit"
+          onClick={props.onResetClick}
+        >
+          <ResetIcon />
+        </IconButton>
+      </Toolbar>
+    </AppBar>
   );
 };
 
