@@ -10,6 +10,7 @@ const Card = (props) => {
   return (
     <img
       src={data}
+      className="Card"
       onClick={props.onClick}
       width={`${100 / props.col}%`}
       alt=""

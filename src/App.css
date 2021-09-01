@@ -5,6 +5,13 @@ body {
 .Content {
   background-color: #282c34;
 }
+
+.Card {
+  display: block;
+  max-width: 20%;
+  max-height: 100%;
+  height: auto;
+}
 .Winner {
   background: -webkit-linear-gradient(
     45deg,
