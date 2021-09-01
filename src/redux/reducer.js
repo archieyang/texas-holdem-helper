@@ -7,23 +7,23 @@ import { Suit, Rank } from "../data/cardData";
 const initState = fromJS({
   showDialog: false,
   community: [
+    { suit: Suit.HEART, rank: Rank.TWO },
     { suit: Suit.HEART, rank: Rank.THREE },
     { suit: Suit.CLUB, rank: Rank.FOUR },
-    { suit: Suit.SPADE, rank: Rank.FIVE },
-    { suit: Suit.HEART, rank: Rank.JACK },
-    { suit: Suit.HEART, rank: Rank.QUEEN },
+    { suit: Suit.DIAMOND, rank: Rank.KING },
+    { suit: Suit.SPADE, rank: Rank.KING },
   ],
   players: [
     {
       cards: [
-        { suit: Suit.DIAMOND, rank: Rank.ACE },
-        { suit: Suit.DIAMOND, rank: Rank.TWO },
+        { suit: Suit.HEART, rank: Rank.ACE },
+        { suit: Suit.HEART, rank: Rank.FIVE },
       ],
     },
     {
       cards: [
-        { suit: Suit.CLUB, rank: Rank.TWO },
-        { suit: Suit.HEART, rank: Rank.TWO },
+        { suit: Suit.CLUB, rank: Rank.ACE },
+        { suit: Suit.CLUB, rank: Rank.KING },
       ],
     },
   ],
