@@ -46,7 +46,7 @@ const App = (props) => {
           variant="contained"
           color="primary"
           style={ACTION_BUTTON}
-          onClick={props.isValid ? props.handleSolve : props.showErrorPrompt}
+          onClick={props.handleSolve}
         >
           Solve
         </Button>
@@ -61,7 +61,7 @@ const App = (props) => {
         autoHideDuration={3000}
         onClose={props.hideErrorPrompt}
       >
-        <Alert severity="error">Duplicate card</Alert>
+        <Alert severity="error">{props.errorPrompt}</Alert>
       </Snackbar>
 
       <PickerDialog
@@ -111,12 +111,6 @@ const dispatchToProps = (dispatch) => {
       dispatch({
         type: Types.CARD_CHANGED,
         payload: card,
-      });
-    },
-
-    showErrorPrompt: () => {
-      dispatch({
-        type: Types.SHOW_ERROR_PROMPT,
       });
     },
     hideErrorPrompt: () => {

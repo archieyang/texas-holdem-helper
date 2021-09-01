@@ -29,7 +29,6 @@ const initState = fromJS({
   ],
   editing: {},
   isValid: true,
-  errorPrompt: false,
 });
 
 const setCard = (state, key, value) => {
@@ -136,23 +135,34 @@ const reducer = (state = initState, action) => {
         )
       ).set("showDialog", false);
 
-    case Types.SHOW_ERROR_PROMPT:
-      return state.set("errorPrompt", true);
-
     case Types.HIDE_ERROR_PROMPT:
-      return state.set("errorPrompt", false);
+      return state.delete("errorPrompt");
 
     case Types.SOLVE:
       clearWinnerState(plainState);
-      let hands = plainState.players
-        .filter((player) => {
-          return !_.isEmpty(player.cards[0]) && !_.isEmpty(player.cards[1]);
-        })
-        .map((player) => {
-          return Hand.solve(
-            convertToString([...player.cards, ...plainState.community])
-          );
+
+      if (state.get("isValid") === false) {
+        return state.set("errorPrompt", "Duplicate cards");
+      }
+
+      let containsEmptyCard = false;
+
+      let hands = plainState.players.map((player) => {
+        let cards = [...plainState.community];
+        player.cards.forEach((item) => {
+          if (!_.isEmpty(item)) {
+            cards.push(item);
+          } else {
+            containsEmptyCard = true;
+          }
         });
+
+        return containsEmptyCard ? {} : Hand.solve(convertToString(cards));
+      });
+
+      if (containsEmptyCard) {
+        return state.set("errorPrompt", "Empty cards");
+      }
 
       let solvedHands = Hand.winners(hands);
 
