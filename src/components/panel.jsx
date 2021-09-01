@@ -1,11 +1,7 @@
-import React, { Component } from "react";
-import Card from "./card";
+import React from "react";
 import Chip from "@material-ui/core/Chip";
 import FaceIcon from "@material-ui/icons/Face";
-
-const COL = 5;
-const CARD_HEIGHT = 80;
-const CARD_WIDTH = 60;
+import Cards from "./cards";
 
 let Panel = (props) => {
   const winner = props.winner && props.winner === true;
@@ -35,26 +31,7 @@ let Panel = (props) => {
         }}
       />
 
-      <div className="Cards">
-        {props.cards.map((card, index) => {
-          return (
-            <Card
-              backgroundColor="aqua"
-              key={index}
-              card={card}
-              height={CARD_HEIGHT}
-              onClick={() => {
-                props.onCardClick(index, props.index);
-              }}
-            />
-          );
-        })}
-
-        {props.cards.length < COL &&
-          [...Array(COL - props.cards.length).keys()].map((index) => {
-            return <img width={CARD_WIDTH} height="0" key={-10 - index} />;
-          })}
-      </div>
+      <Cards {...props} />
     </div>
   );
 };

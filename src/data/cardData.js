@@ -21,4 +21,20 @@ export const Rank = {
   KING: "K",
 };
 
+export const Hearts = Object.entries(Rank).map((key) => {
+  return { suit: Suit.HEART, rank: key[1] };
+});
+
+export const Diamonds = Object.entries(Rank).map((key) => {
+  return { suit: Suit.DIAMOND, rank: key[1] };
+});
+
+export const Spades = Object.entries(Rank).map((key) => {
+  return { suit: Suit.SPADE, rank: key[1] };
+});
+
+export const Clubs = Object.entries(Rank).map((key) => {
+  return { suit: Suit.CLUB, rank: key[1] };
+});
+
 export const Default = { suit: Suit.HEART, rank: Rank.ACE };

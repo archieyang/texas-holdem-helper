@@ -14,7 +14,7 @@ const App = (props) => {
   return (
     <div>
       <Appbar
-      position="fixed"
+        position="fixed"
         onAddClick={props.handleAddPlayer}
         onResetClick={props.handleReset}
       />
@@ -64,9 +64,7 @@ const App = (props) => {
 
       <PickerDialog
         open={props.showDialog}
-        handleClose={props.handleFinishEditing}
-        handleSuitChange={props.handleSuitChanged}
-        handleRankChange={props.handleRankChanged}
+        onCardClick={props.handleCardChanged}
         editing={props.editing}
       />
     </div>
@@ -106,29 +104,14 @@ const dispatchToProps = (dispatch) => {
         },
       });
     },
-    handleFinishEditing: () => {
+
+    handleCardChanged: (_p1, _p2, card) => {
       dispatch({
-        type: Types.FINISH_EDITING,
+        type: Types.CARD_CHANGED,
+        payload: card,
       });
     },
 
-    handleSuitChanged: (suit) => {
-      dispatch({
-        type: Types.SUIT_CHANGED,
-        payload: {
-          suit,
-        },
-      });
-    },
-
-    handleRankChanged: (rank) => {
-      dispatch({
-        type: Types.RANK_CHANGED,
-        payload: {
-          rank,
-        },
-      });
-    },
     showErrorPrompt: () => {
       dispatch({
         type: Types.SHOW_ERROR_PROMPT,

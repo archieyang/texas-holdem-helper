@@ -104,6 +104,7 @@ const reducer = (state = initState, action) => {
       plainState.players.map((player) => {
         player.cards = [{}, {}];
         delete player.winner;
+        return player;
       });
       plainState.community = [{}, {}, {}, {}, {}];
       return fromJS(plainState);
@@ -148,26 +149,18 @@ const reducer = (state = initState, action) => {
         )
       );
 
-    case Types.FINISH_EDITING:
-      return state.set("showDialog", false);
-
-    case Types.SUIT_CHANGED:
+    case Types.CARD_CHANGED:
       return validate(
         setCard(
-          fromJS(clearWinnerState(plainState)),
-          "suit",
-          action.payload.suit
-        )
-      );
-
-    case Types.RANK_CHANGED:
-      return validate(
-        setCard(
-          fromJS(clearWinnerState(plainState)),
+          setCard(
+            fromJS(clearWinnerState(plainState)),
+            "suit",
+            action.payload.suit
+          ),
           "rank",
           action.payload.rank
         )
-      );
+      ).set("showDialog", false);
 
     case Types.SHOW_ERROR_PROMPT:
       return state.set("errorPrompt", true);
