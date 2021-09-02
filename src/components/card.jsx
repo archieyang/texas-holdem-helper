@@ -7,15 +7,7 @@ const Card = (props) => {
   let data = _.isEmpty(card)
     ? Poker.getBackData(200)
     : Poker.getCardData(200, card.suit, card.rank);
-  return (
-    <img
-      src={data}
-      className="Card"
-      onClick={props.onClick}
-      width={`${100 / props.col}%`}
-      alt=""
-    />
-  );
+  return <img src={data} className="Card" onClick={props.onClick} alt="" />;
 };
 
 export default Card;

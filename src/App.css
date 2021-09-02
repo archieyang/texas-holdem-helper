@@ -7,11 +7,15 @@ body {
 }
 
 .Card {
-  display: block;
-  max-width: 20%;
+  width: 100%;
   max-height: 100%;
   height: auto;
 }
+.Cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+}
+
 .Winner {
   background: -webkit-linear-gradient(
     45deg,
@@ -35,12 +39,6 @@ body {
   display: flex;
   flex-direction: column;
   padding: 1em 0em 1em 0em;
-}
-
-.Cards {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
 }
 
 .App-logo {
