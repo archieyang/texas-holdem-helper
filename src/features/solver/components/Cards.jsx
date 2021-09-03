@@ -1,18 +1,16 @@
 import React from "react";
-import Card from "./card";
+import Card from "./Card";
 
-const Cards = (props) => {
+const Cards = ({ cards, onClick }) => {
   return (
     <div className="Cards">
-      {props.cards.map((card, index) => {
+      {cards.map((card, cardIndex) => {
         return (
           <Card
-            {...props}
-            backgroundColor="aqua"
-            key={index}
+            key={cardIndex}
             card={card}
             onClick={() => {
-              props.onCardClick(index, props.index, card);
+              onClick({ cardIndex, card });
             }}
           />
         );
@@ -20,6 +18,7 @@ const Cards = (props) => {
     </div>
   );
 };
+
 Cards.defaultProps = {
   col: 5,
 };

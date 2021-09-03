@@ -1,44 +1,33 @@
 import "./App.css";
-import Panel from "./components/panel";
-import PickerDialog from "./components/pickerDialog";
+import Panel from "./features/solver/components/Panel";
+import CardPickerDialog from "./features/solver/components/CardPickerDialog";
 import React from "react";
-import { connect } from "react-redux";
-import { Types } from "./action";
-import { ACTION_BUTTON } from "./styles/style";
-import Snackbar from "@material-ui/core/Snackbar";
+import { ACTION_BUTTON } from "./common/styles/style";
 import Button from "@material-ui/core/Button";
-import Appbar from "./components/appbar";
+import Appbar from "./features/solver/components/Appbar";
 import Container from "@material-ui/core/Container";
-import MuiAlert from "@material-ui/lab/Alert";
+import { useSelector, useDispatch } from "react-redux";
+import { solverSelector, solve } from "./features/solver/solverSlice";
+import BottomPrompt from "./common/components/BottomPrompt";
 
-const App = (props) => {
+const App = () => {
+  const data = useSelector(solverSelector);
+  const dispatch = useDispatch();
+
+  const onSolveClicked = () => {
+    dispatch(solve());
+  };
+
   return (
     <div>
-      <Appbar
-        position="fixed"
-        onAddClick={props.handleAddPlayer}
-        onResetClick={props.handleReset}
-      />
+      <Appbar position="fixed" />
 
       <Container maxWidth="sm" align="center">
-        <Panel
-          onCardClick={props.handleStartEditing}
-          cards={props.community}
-          index={-1}
-          key={-1}
-          onDeletePlayer={() => {}}
-          winner={false}
-        />
-        {props.players.map((player, index) => {
+        <Panel playerIndex={-1} key={-1} winner={false} />
+
+        {data.players.map((player, index) => {
           return (
-            <Panel
-              onCardClick={props.handleStartEditing}
-              onDeletePlayer={props.handleDeletePlayer}
-              cards={player.cards}
-              key={index}
-              index={index}
-              winner={player.winner}
-            />
+            <Panel key={index} playerIndex={index} winner={player.winner} />
           );
         })}
 
@@ -46,89 +35,16 @@ const App = (props) => {
           variant="contained"
           color="primary"
           style={ACTION_BUTTON}
-          onClick={props.handleSolve}
+          onClick={onSolveClicked}
         >
           Solve
         </Button>
       </Container>
+      <BottomPrompt message={data.errorPrompt} />
 
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        open={props.errorPrompt}
-        autoHideDuration={3000}
-        onClose={props.hideErrorPrompt}
-      >
-        <Alert severity="error">{props.errorPrompt}</Alert>
-      </Snackbar>
-
-      <PickerDialog
-        open={props.showDialog}
-        onCardClick={props.handleCardChanged}
-        editing={props.editing}
-      />
+      <CardPickerDialog open={data.showDialog} editing={data.editing} />
     </div>
   );
 };
 
-const stateToProps = (state) => {
-  return state.toJS();
-};
-
-const dispatchToProps = (dispatch) => {
-  return {
-    handleReset: () => {
-      dispatch({
-        type: Types.RESET,
-      });
-    },
-    handleAddPlayer: () => {
-      dispatch({
-        type: Types.ADD_PLAYER,
-      });
-    },
-    handleDeletePlayer: (playerIndex) => {
-      dispatch({
-        type: Types.DELETE_PLAYER,
-        payload: {
-          playerIndex,
-        },
-      });
-    },
-    handleStartEditing: (cardIndex, playerIndex) => {
-      dispatch({
-        type: Types.START_EDITING,
-        payload: {
-          cardIndex,
-          playerIndex,
-        },
-      });
-    },
-
-    handleCardChanged: (_p1, _p2, card) => {
-      dispatch({
-        type: Types.CARD_CHANGED,
-        payload: card,
-      });
-    },
-    hideErrorPrompt: () => {
-      dispatch({
-        type: Types.HIDE_ERROR_PROMPT,
-      });
-    },
-
-    handleSolve: () => {
-      dispatch({
-        type: Types.SOLVE,
-      });
-    },
-  };
-};
-
-function Alert(props) {
-  return <MuiAlert elevation={6} variant="filled" {...props} />;
-}
-
-export default connect(stateToProps, dispatchToProps)(App);
+export default App;

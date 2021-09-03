@@ -6,6 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
+import { useDispatch } from "react-redux";
+import { reset, addPlayer } from "../solverSlice";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +21,17 @@ const useStyles = makeStyles((theme) => ({
     marginLeft: theme.spacing(2),
   },
 }));
-const Appbar = (props) => {
+const Appbar = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+  const onResetClicked = () => {
+    dispatch(reset());
+  };
+
+  const onAddClick = () => {
+    dispatch(addPlayer());
+  };
   return (
     <AppBar position="sticky" className={classes.root}>
       <Toolbar>
@@ -28,7 +39,7 @@ const Appbar = (props) => {
           Texas Hold'em Helper
         </Typography>
         <IconButton
-          onClick={props.onAddClick}
+          onClick={onAddClick}
           edge="start"
           className={classes.iconButton}
           color="inherit"
@@ -40,7 +51,7 @@ const Appbar = (props) => {
           edge="start"
           className={classes.iconButton}
           color="inherit"
-          onClick={props.onResetClick}
+          onClick={onResetClicked}
         >
           <ResetIcon />
         </IconButton>

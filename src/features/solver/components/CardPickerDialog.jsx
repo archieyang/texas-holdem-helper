@@ -7,9 +7,11 @@ import Tab from "@material-ui/core/Tab";
 import Box from "@material-ui/core/Box";
 import Dialog from "@material-ui/core/Dialog";
 import Slide from "@material-ui/core/Slide";
-import { Hearts, Diamonds, Spades, Clubs } from "../data/cardData";
+import { Hearts, Diamonds, Spades, Clubs } from "../../../data/cardData";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
-import Cards from "./cards";
+import Cards from "./Cards";
+import { useDispatch } from "react-redux";
+import { finishEditing } from "../solverSlice";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
@@ -45,10 +47,16 @@ function a11yProps(index) {
   };
 }
 
-const PickerDialog = (props) => {
+const CardPickerDialog = ({ open }) => {
   const [value, setValue] = React.useState(0);
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const dispatch = useDispatch();
+
+  const onCardClick = ({ card }) => {
+    dispatch(finishEditing(card));
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -56,8 +64,7 @@ const PickerDialog = (props) => {
   return (
     <Dialog
       fullScreen={fullScreen}
-      open={props.open}
-      onClose={props.handleClose}
+      open={open}
       TransitionComponent={Transition}
       aria-labelledby="responsive-dialog-title"
     >
@@ -76,19 +83,19 @@ const PickerDialog = (props) => {
       </AppBar>
 
       <TabPanel value={value} index={0}>
-        <Cards cards={Hearts} onCardClick={props.onCardClick} />
+        <Cards cards={Hearts} onClick={onCardClick} />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Cards cards={Diamonds} onCardClick={props.onCardClick} />
+        <Cards cards={Diamonds} onClick={onCardClick} />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Cards cards={Spades} onCardClick={props.onCardClick} />
+        <Cards cards={Spades} onClick={onCardClick} />
       </TabPanel>
       <TabPanel value={value} index={3}>
-        <Cards cards={Clubs} onCardClick={props.onCardClick} />
+        <Cards cards={Clubs} onClick={onCardClick} />
       </TabPanel>
     </Dialog>
   );
 };
 
-export default PickerDialog;
+export default CardPickerDialog;
