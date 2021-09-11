@@ -31,7 +31,7 @@ const initialState = {
 
 const clearWinnerState = (state) => {
   state.players.forEach((player) => {
-    delete player.winner;
+    player.winner = false;
   });
   return state;
 };
@@ -84,9 +84,9 @@ const solverSlice = createSlice({
   initialState,
   reducers: {
     reset(state, action) {
+      clearWinnerState(state);
       state.players.map((player) => {
         player.cards = [{}, {}];
-        delete player.winner;
         return player;
       });
       state.community = [{}, {}, {}, {}, {}];
