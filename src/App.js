@@ -9,9 +9,10 @@ import Container from "@material-ui/core/Container";
 import { useSelector, useDispatch } from "react-redux";
 import { solverSelector, solve } from "./features/solver/solverSlice";
 import BottomPrompt from "./common/components/BottomPrompt";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 
 ReactGA.initialize("G-QZBWRWJG3L");
+ReactGA.send("pageview");
 
 const App = () => {
   const data = useSelector(solverSelector);
@@ -21,8 +22,6 @@ const App = () => {
     ReactGA.event({ category: "INDEX", action: "SOLVE", label: "SOLVE" });
     dispatch(solve());
   };
-
-  ReactGA.pageview("index");
 
   return (
     <div>
